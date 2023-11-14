@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import static br.com.mrb.restspringbootandjavamauro.converter.NumberConverter.convertToDouble;
 import static br.com.mrb.restspringbootandjavamauro.converter.NumberConverter.isNumeric;
+import br.com.mrb.restspringbootandjavamauro.math.SimpleMath;
 
 
 @RestController
 public class MathController {
 
+    private SimpleMath math = new SimpleMath();
     @RequestMapping(value = "/sum/{numberOne}/{numberTwo}",
             method=RequestMethod.GET)
     public Double sum(
@@ -23,7 +25,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
             throw new UnsupportedMathOperationException("Please set a value numeric");
         }
-        return convertToDouble(numberOne) + convertToDouble(numberTwo);
+        return math.sum(convertToDouble(numberOne) , convertToDouble(numberTwo));
     }
 
 
@@ -36,7 +38,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
             throw new UnsupportedMathOperationException("Please set a value numeric");
         }
-        return convertToDouble(numberOne) - convertToDouble(numberTwo);
+        return math.subtraction(convertToDouble(numberOne) , convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/multiplication/{numberOne}/{numberTwo}",
@@ -48,7 +50,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
             throw new UnsupportedMathOperationException("Please set a value numeric");
         }
-        return convertToDouble(numberOne) * convertToDouble(numberTwo);
+        return math.multiplication(convertToDouble(numberOne) , convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/division/{numberOne}/{numberTwo}",
@@ -60,7 +62,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
             throw new UnsupportedMathOperationException("Please set a value numeric");
         }
-        return convertToDouble(numberOne) / convertToDouble(numberTwo);
+        return math.division(convertToDouble(numberOne) , convertToDouble(numberTwo));
     }
 
 
@@ -73,7 +75,7 @@ public class MathController {
         if(!isNumeric(numberOne) || !isNumeric(numberTwo)){
             throw new UnsupportedMathOperationException("Please set a value numeric");
         }
-        return (convertToDouble(numberOne) + convertToDouble(numberTwo)) /2;
+        return math.mean(convertToDouble(numberOne),  convertToDouble(numberTwo));
     }
 
     @RequestMapping(value = "/squareRoot/{number}",
@@ -85,7 +87,7 @@ public class MathController {
         if(!isNumeric(number)) {
             throw new UnsupportedMathOperationException("Please set a numeric value!");
         }
-        return Math.sqrt(convertToDouble(number));
+        return math.squareRoot(convertToDouble(number));
     }
 
 }
