@@ -21,12 +21,17 @@ public class MathController {
         return convertToDouble(numberOne) + convertToDouble(numberTwo);
     }
 
-    private Double convertToDouble(String numberOne) {
-        return null;
+    private Double convertToDouble(String strNumber) {
+        if(strNumber==null) return 0D;
+        var number = strNumber.replaceAll(",",".");
+        if(isNumeric(number)) return Double.parseDouble(number);
+        return 0D;
     }
 
-    private boolean isNumeric(String number) {
-        return false;
+    private boolean isNumeric(String strNumber) {
+        if(strNumber==null) return false;
+        var number = strNumber.replaceAll(",", ".");
+        return number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
 
 }
