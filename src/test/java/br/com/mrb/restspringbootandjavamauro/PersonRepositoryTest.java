@@ -17,7 +17,7 @@ public class PersonRepositoryTest {
     @Autowired
     private PersonRepository personRepository;
 
-    Person person ;
+    private Person person ;
 
     @BeforeEach
     public void setup() {
