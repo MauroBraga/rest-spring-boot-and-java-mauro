@@ -29,4 +29,35 @@ public class PersonRepositoryTest {
         assertNotNull(personSaved);
         assertTrue(personSaved.getId() > 0);
     }
+
+    @DisplayName("JUnit test for Given Person List when findAll then Return Person List")
+    @Test
+    void testGivenPersonList_whenFindAll_thenReturnPersonList() {
+        //Given / Arange
+        var person = new Person("Mauro","Braga","Rio de Janeiro - Brasil","Male","mrb0305@gmail.com");
+        var person1 = new Person("Oscar","Braga","Rio de Janeiro - Brasil","Male","oscar@gmail.com");
+
+        personRepository.save(person);
+        personRepository.save(person1);
+
+        //When / Act
+        var personList = personRepository.findAll();
+
+        //Then / Assert
+        assertNotNull(personList);
+        assertEquals(2,personList.size());
+    }
+
+    @DisplayName("JUnit test for Given Person Object when findByID then Return Person Object")
+    @Test
+    void testGivenPersonObject_whenFindByID_thenReturnPersonObject() {
+        //Given / Arange
+        var person = new Person("Mauro","Braga","Rio de Janeiro - Brasil","Male","mrb0305@gmail.com");
+        personRepository.save(person);
+        //When / Act
+        var personSaved = personRepository.findById(person.getId()).get();
+        //Then / Assert
+        assertNotNull(personSaved);
+        assertEquals(person.getId(),personSaved.getId());
+    }
 }
