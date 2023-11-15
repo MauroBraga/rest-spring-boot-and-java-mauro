@@ -107,4 +107,80 @@ public class PersonRepositoryTest {
         //Then / Assert
         assertTrue(personOptional.isEmpty());
     }
+
+    @DisplayName("JUnit test for Given firstName and lastName when findJPQL then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindJPQL_thenReturnPersonObject() {
+
+        // Given / Arrange
+        personRepository.save(person);
+
+        String firstName = "Mauro";
+        String lastName = "Braga";
+
+        // When / Act
+        Person savedPerson = personRepository.findByJPQL(firstName, lastName);
+
+        // Then / Assert
+        assertNotNull(savedPerson);
+        assertEquals(firstName, savedPerson.getFirstName());
+        assertEquals(lastName, savedPerson.getLastName());
+    }
+
+    @DisplayName("JUnit test for Given firstName and lastName when findByJPQLNamedParameters then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindByJPQLNamedParameters_thenReturnPersonObject() {
+
+        // Given / Arrange
+        personRepository.save(person);
+
+        String firstName = "Mauro";
+        String lastName = "Braga";
+
+        // When / Act
+        Person savedPerson = personRepository.findByJPQLNamedParameters(firstName, lastName);
+
+        // Then / Assert
+        assertNotNull(savedPerson);
+        assertEquals(firstName, savedPerson.getFirstName());
+        assertEquals(lastName, savedPerson.getLastName());
+    }
+
+    @DisplayName("JUnit test for Given firstName and lastName when findByNativeSQL then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindByNativeSQL_thenReturnPersonObject() {
+
+        // Given / Arrange
+        personRepository.save(person);
+
+        String firstName = "Mauro";
+        String lastName = "Braga";
+
+        // When / Act
+        Person savedPerson = personRepository.findByNativeSQL(firstName, lastName);
+
+        // Then / Assert
+        assertNotNull(savedPerson);
+        assertEquals(firstName, savedPerson.getFirstName());
+        assertEquals(lastName, savedPerson.getLastName());
+    }
+
+    @DisplayName("JUnit test for Given firstName and lastName when findByNativeSQLwithNamedParameters then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindByNativeSQLwithNamedParameters_thenReturnPersonObject() {
+
+        // Given / Arrange
+        personRepository.save(person);
+
+        String firstName = "Mauro";
+        String lastName = "Braga";
+
+        // When / Act
+        Person savedPerson = personRepository.findByNativeSQLwithNamedParameters(firstName, lastName);
+
+        // Then / Assert
+        assertNotNull(savedPerson);
+        assertEquals(firstName, savedPerson.getFirstName());
+        assertEquals(lastName, savedPerson.getLastName());
+    }
 }
