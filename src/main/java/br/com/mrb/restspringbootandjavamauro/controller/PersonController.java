@@ -1,18 +1,14 @@
 package br.com.mrb.restspringbootandjavamauro.controller;
 
-import br.com.mrb.restspringbootandjavamauro.exceptions.UnsupportedMathOperationException;
-import br.com.mrb.restspringbootandjavamauro.math.SimpleMath;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import br.com.mrb.restspringbootandjavamauro.model.Person;
 import br.com.mrb.restspringbootandjavamauro.services.PersonServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import static br.com.mrb.restspringbootandjavamauro.converter.NumberConverter.convertToDouble;
-import static br.com.mrb.restspringbootandjavamauro.converter.NumberConverter.isNumeric;
+import java.util.List;
+
 
 
 @RestController
@@ -22,11 +18,34 @@ public class PersonController {
     @Autowired
     private PersonServices service;
 
-    @RequestMapping(value = "/{id}",
-            method=RequestMethod.GET,
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Person> findAll() {
+        return service.findAll();
+    }
+
+    @GetMapping(value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable(value = "id") String id) {
+    public Person findById(@PathVariable(value = "id") Long id) {
         return service.findById(id);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person create(@RequestBody Person person) {
+        return service.create(person);
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person update(@RequestBody Person person) {
+        return service.update(person);
+    }
+
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity delete(@PathVariable(value = "id") Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

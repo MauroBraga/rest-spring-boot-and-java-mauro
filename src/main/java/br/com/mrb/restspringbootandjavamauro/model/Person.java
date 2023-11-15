@@ -1,19 +1,56 @@
 package br.com.mrb.restspringbootandjavamauro.model;
 
-import java.io.Serializable;
-import java.util.Objects;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+
+@Entity
+@Table(name = "person")
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
+    @Column(nullable = false, length = 100)
     private String address;
+    @Column(nullable = false, length = 6)
     private String gender;
 
+    @Column(nullable = false, length = 100)
+    private String email;
+
     public Person() {
+    }
+
+    public Person(String firstName, String lastName, String address, String gender, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.gender = gender;
+        this.email = email;
+    }
+
+    public Person(Long id, String firstName, String lastName, String address, String gender, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.gender = gender;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getId() {
