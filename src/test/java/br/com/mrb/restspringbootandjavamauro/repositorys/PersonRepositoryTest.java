@@ -1,4 +1,4 @@
-package br.com.mrb.restspringbootandjavamauro;
+package br.com.mrb.restspringbootandjavamauro.repositorys;
 
 import br.com.mrb.restspringbootandjavamauro.model.Person;
 import br.com.mrb.restspringbootandjavamauro.repositorys.PersonRepository;
